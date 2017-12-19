@@ -17,10 +17,11 @@ app.use(cors());
 app.get('/', (req, res) => res.send('Testing 1, 2, 3'));
 app.get('*', (req, res) => res.redirect(CLIENT_URL));
 
-app.get('/books_app', (req, res) =>{
-  //call get all the books here
-  //using postgres Language SELECT * FROM books
-})
+// app.get('/api/v1/books', (req, res) =>{
+
+//   //call get all the books here
+//   //using postgres Language SELECT * FROM books
+// });
 
 app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
 
