@@ -30,7 +30,7 @@ app.get('/api/v1/books', (req, res) => {
 //route for book detail by id
 app.get('/api/v1/books/1', (req,res)=> {
   client.query(`SELECT * FROM books 
-  WHERE book_id=1; `)
+  WHERE book_id=5; `)
     .then(results => res.send(results.rows))
     .catch(console.error);
 });
