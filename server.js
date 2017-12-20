@@ -11,7 +11,7 @@ const PORT = process.env.PORT;
 const DATABASE_URL = process.env.DATABASE_URL;
 const CLIENT_URL = process.env.CLIENT_URL;
 
-
+ 
 
 //DATABASE Setup
 const client = new pg.Client(DATABASE_URL);
