@@ -51,6 +51,7 @@ app.get('/api/v1/books', (req, res) => {
 
 // form post
 app.post('/api/v1/books', (request, response) => {
+  console.log('we got to the post route for insertForm');
   client.query(
     `INSERT INTO
     books(title, author, isbn, image_url, description)
