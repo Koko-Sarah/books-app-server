@@ -21,18 +21,29 @@ client.on('error', err => console.error(err));
 app.use(cors());
 
 app.get('/api/v1/books', (req, res) => {
-  client.query('SELECT * FROM books;')
-
+  client.query(`SELECT * FROM books;`);
+  console.log('your servers running!')
     .then(results => res.send(results.rows))
     .catch(console.error);
 });
 
+//OLD ROUTE-----------------
 //route for book detail by id
-app.get('/api/v1/books/1', (req,res)=> {
+// app.get('/api/v1/books/1', (req,res)=> {
+//   client.query(`SELECT * FROM books 
+//   WHERE book_id=5; `)
+//     .then(results => res.send(results.rows))
+//     .catch(console.error);
+// });
+
+//---------------NEW ROUTE
+app.get('/api/v1/books/:id', (req, res) => {
   client.query(`SELECT * FROM books 
-  WHERE book_id=5; `)
+  WHERE book_id=$1;`, [req.params.id])
+    .then(console.log(res))
     .then(results => res.send(results.rows))
     .catch(console.error);
+  console.log('your getting books by id')
 });
 
 
