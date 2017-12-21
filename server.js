@@ -4,6 +4,7 @@
 const express = require('express');
 const cors = require('cors');
 const pg = require('pg');
+const bodyParser = require('body-parser');
 
 // Application Setup
 const app = express();
@@ -19,6 +20,7 @@ client.connect();
 client.on('error', err => console.error(err));
 
 app.use(cors());
+app.use(bodyParser.json());
 
 app.get('/api/v1/books', (req, res) => {
   client.query(`SELECT * FROM books;`)
@@ -45,6 +47,32 @@ app.get('/api/v1/books', (req, res) => {
 });
 
 ///////////////////catchall
+
+
+// form post
+
+app.post('/api/v1/books', (request, response) => {
+  client.query(
+    `INSERT INTO
+    books(title, author, isbn, image_url, description)
+    VALUES ($1, $2, $3, $4, $5);
+    `,
+    [
+      request.body.title,
+      request.body.author,
+      request.body.isbn,
+      request.body.image_url,
+      request.body.description,
+    ]
+  )
+    .then(function() {
+      response.send('insert complete');
+    })
+    .catch(function(err) {
+      console.error(err);
+    });
+});
+
 
 app.all('*', (req, res) => res.redirect(CLIENT_URL));
 app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
