@@ -13,7 +13,7 @@ const CLIENT_URL = process.env.CLIENT_URL;
 
  
 
-//DATABASE Setup
+//////////////////DATABASE Setup
 const client = new pg.Client(DATABASE_URL);
 client.connect();
 client.on('error', err => console.error(err));
@@ -27,7 +27,7 @@ app.get('/api/v1/books', (req, res) => {
     .catch(console.error);
 });
 
-//---------------NEW ROUTE
+///////////////////NEW ROUTE
 app.get('/api/v1/books/:id', (req, res) => {
   client.query(`SELECT * FROM books 
   WHERE book_id=$1;`, [req.params.id])
@@ -36,7 +36,15 @@ app.get('/api/v1/books/:id', (req, res) => {
     .catch(console.error);
   console.log('your getting books by id');
 });
+///////////////RESTFUL END POINT
 
+app.get('/api/v1/books', (req, res) => {
+  client.query('SELECT book_id, title, author, image_url FROM books;')
+    .then(results => res.send(results.rows))
+    .catch(console.error);
+});
+
+///////////////////catchall
 
 app.all('*', (req, res) => res.redirect(CLIENT_URL));
 app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
