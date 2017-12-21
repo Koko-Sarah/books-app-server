@@ -21,8 +21,8 @@ client.on('error', err => console.error(err));
 app.use(cors());
 
 app.get('/api/v1/books', (req, res) => {
-  client.query(`SELECT * FROM books;`);
-  console.log('your servers running!')
+  client.query(`SELECT * FROM books;`)
+  // console.log('your servers running!')
     .then(results => res.send(results.rows))
     .catch(console.error);
 });
@@ -40,10 +40,10 @@ app.get('/api/v1/books', (req, res) => {
 app.get('/api/v1/books/:id', (req, res) => {
   client.query(`SELECT * FROM books 
   WHERE book_id=$1;`, [req.params.id])
-    .then(console.log(res))
+    // .then(console.log(res))
     .then(results => res.send(results.rows))
     .catch(console.error);
-  console.log('your getting books by id')
+  console.log('your getting books by id');
 });
 
 
