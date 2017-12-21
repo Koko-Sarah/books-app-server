@@ -46,11 +46,10 @@ app.get('/api/v1/books', (req, res) => {
     .catch(console.error);
 });
 
-///////////////////catchall
+
 
 
 // form post
-
 app.post('/api/v1/books', (request, response) => {
   client.query(
     `INSERT INTO
@@ -73,7 +72,7 @@ app.post('/api/v1/books', (request, response) => {
     });
 });
 
-
+///////////////////catchall
 app.all('*', (req, res) => res.redirect(CLIENT_URL));
 app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
 
