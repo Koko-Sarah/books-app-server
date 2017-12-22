@@ -73,6 +73,18 @@ app.post('/api/v1/books', (request, response) => {
     });
 });
 
+/// delete route
+
+app.delete('api/v1/books/:id', (req, res) => {
+  console.log('we got to the delete route');
+  client.query(`DELETE from books
+    WHERE book_id=$1;`, [req.params.id])
+
+    .then(function () {
+      res.status(204);
+    });
+});
+
 ///////////////////catchall
 app.all('*', (req, res) => res.redirect(CLIENT_URL));
 app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
