@@ -1,12 +1,13 @@
 {
   "name": "books-app-server",
   "version": "1.0.0",
-  "description": "",
+  "description": "**Author**: Koko and Sarah\r **Version**: 1.0.0",
   "main": "server.js",
   "dependencies": {
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
     "express": "^4.16.2",
+    "nodemon": "^1.14.1",
     "pg": "^7.4.0"
   },
   "devDependencies": {},

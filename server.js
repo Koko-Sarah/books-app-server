@@ -10,9 +10,10 @@ const bodyParser = require('body-parser');
 const app = express();
 const PORT = process.env.PORT;
 const DATABASE_URL = process.env.DATABASE_URL;
+// const DATABASE_URL = 'postgres://postgres:1234@localhost:5433/books_app';
 const CLIENT_URL = process.env.CLIENT_URL;
 
- 
+
 
 //////////////////DATABASE Setup
 const client = new pg.Client(DATABASE_URL);
