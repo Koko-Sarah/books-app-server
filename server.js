@@ -49,7 +49,7 @@ app.get('/api/v1/books', (req, res) => {
 
 
 
-// form post
+// FORM POST
 app.post('/api/v1/books', (request, response) => {
   console.log(request.body.title, 'we got to the post route for insertForm');
   client.query(
@@ -70,6 +70,17 @@ app.post('/api/v1/books', (request, response) => {
     })
     .catch(function(err) {
       console.error(err);
+    });
+});
+
+//FORM DELETE
+app.delete('api/v1/books/:id', (req, res) => {
+  console.log('we got to the delete route');
+  client.query(`DELETE from books
+    WHERE book_id=$1;`, [req.params.id])
+
+    .then(function () {
+      res.status(204);
     });
 });
 
