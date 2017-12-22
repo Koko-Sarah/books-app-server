@@ -4,7 +4,7 @@
 const express = require('express');
 const cors = require('cors');
 const pg = require('pg');
-const bodyParser = require('body-parser');
+const bodyParser = require('body-parser').urlencoded({extended: true});
 
 // Application Setup
 const app = express();
@@ -20,7 +20,7 @@ client.connect();
 client.on('error', err => console.error(err));
 
 app.use(cors());
-app.use(bodyParser.json());
+app.use(bodyParser);
 
 app.get('/api/v1/books', (req, res) => {
   client.query(`SELECT * FROM books;`)
@@ -51,7 +51,7 @@ app.get('/api/v1/books', (req, res) => {
 
 // form post
 app.post('/api/v1/books', (request, response) => {
-  console.log('we got to the post route for insertForm');
+  console.log(request.body.title, 'we got to the post route for insertForm');
   client.query(
     `INSERT INTO
     books(title, author, isbn, image_url, description)
