@@ -74,15 +74,27 @@ app.post('/api/v1/books', (request, response) => {
 });
 
 //FORM DELETE
-app.delete('api/v1/books/:id', (req, res) => {
-  console.log('we got to the delete route');
-  client.query(`DELETE from books
-    WHERE book_id=$1;`, [req.params.id])
 
-    .then(function () {
-      res.status(204);
+app.delete('/api/v1/books/:id', (req, res) => {
+  console.log('we got to the delete route', req.params.id);
+  client.query(`DELETE FROM books WHERE book_id=$1`, [req.params.id])
+    .then(() => res.sendStatus(204))
+    .catch(err => {
+      console.error(err);
+      res.status(400).send('Bad Request; Book ID does not exist');
     });
 });
+
+
+// app.delete('api/v1/books/:id', (req, res) => {
+//   console.log('we got to the delete route');
+//   client.query(`DELETE from books
+//     WHERE book_id=$1;`, [req.params.id])
+
+//     .then(function () {
+//       res.status(204);
+//     });
+// });
 
 ///////////////////catchall
 app.all('*', (req, res) => res.redirect(CLIENT_URL));
