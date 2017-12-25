@@ -103,8 +103,9 @@ app.delete('/api/v1/books/:id', (req, res) => {
 
 
 app.put('/books', (request, response) => {
+  console.log('we got to the update route', req.params.id);
   client.query(`
-      UPDATE vooks
+      UPDATE books
       SET book_id=$1, title=$2, author=$3, isbn=$4, description=$5
       WHERE article_id=$6
       `,
