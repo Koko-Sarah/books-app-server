@@ -12,7 +12,7 @@ const PORT = process.env.PORT;
 const DATABASE_URL = process.env.DATABASE_URL;
 const CLIENT_URL = process.env.CLIENT_URL;
 
- 
+
 
 //////////////////DATABASE Setup
 const client = new pg.Client(DATABASE_URL);
@@ -97,6 +97,34 @@ app.delete('/api/v1/books/:id', (req, res) => {
 //       res.status(204);
 //     });
 // });
+// app.delete('/books', (request, response) => {
+//   client.query('DELETE FROM books')
+//   .then(() => response.send('Delete complete'))
+//   .catch(console.error);
+// });
+
+
+app.put('/books', (request, response) => {
+  console.log('we got to the update route', request.params.id);
+  client.query(`
+      UPDATE books
+      SET book_id=$1, title=$2, author=$3, isbn=$4, description=$5
+      WHERE book_id=$6
+      `,
+    [
+      request.body.book_id,
+      request.body.title,
+      request.body.author,
+      request.body.publishedOn,
+      request.body.description,
+      request.params.id
+    ]
+  )
+    .then(() => response.send('Update complete'))
+    .catch(console.error);
+});
+
+
 
 ///////////////////catchall
 app.all('*', (req, res) => res.redirect(CLIENT_URL));
